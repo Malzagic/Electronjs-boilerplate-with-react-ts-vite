@@ -1,6 +1,6 @@
-# Electronjs Boilerplate with React + TypeScript + Vite
+# Electron.js Boilerplate with React + TypeScript + Vite
 
-A boilerplate allowing you to quickly start working with Electron.js, React, TypeScript, and Vite. This template includes minimal configurations to run a React app in Vite, with Hot Module Replacement (HMR) support and ESLint.
+A boilerplate to quickly start working with Electron.js, React, TypeScript, and Vite. This template includes minimal configurations to run a React app with Vite, featuring Hot Module Replacement (HMR) support and ESLint for code quality.
 
 ## Technologies used in the project
 
@@ -17,45 +17,34 @@ To run the project locally, follow these steps:
 
 1. Clone the repository:
 
-   ```bash
+   \`\`\`bash
    git clone https://github.com/Malzagic/Electronjs-boilerplate-with-react-ts-vite.git
-   ```
+   \`\`\`
 
 2. Navigate to the project directory:
 
-   ```bash
+   \`\`\`bash
    cd Electronjs-boilerplate-with-react-ts-vite
-   ```
+   \`\`\`
 
 3. Install dependencies:
 
-   ```bash
+   \`\`\`bash
    npm install
-   ```
+   \`\`\`
 
-4. Build the React application:
+4. Run the application in development mode:
 
-   ```bash
-   npm run build
-   ```
+   \`\`\`bash
+   npm run dev
+   \`\`\`
 
-   This command will create the `dist-react` folder containing the built React app.
+   This command will handle:
 
-5. Transpile the Electron code:
+   - Building and running the React application with Vite and HMR.
+   - Transpiling the Electron code (if needed) and starting Electron in development mode.
 
-   ```bash
-   npm run transpile:electron
-   ```
-
-   This command will create the `dist-electron` folder with the transpiled Electron code.
-
-6. Run the application in development mode:
-
-   ```bash
-   npm run dev:electron
-   ```
-
-   The application will start in development mode with HMR enabled for React.
+   You no longer need to manually run multiple commands (\`npm run build\`, \`npm run transpile:electron\`, \`npm run dev:electron\`). Running \`npm run dev\` will handle everything in one step.
 
 ## Vite Note:
 
@@ -68,45 +57,45 @@ This template provides a minimal setup to get React working with TypeScript in V
 
 If you are developing a production application, it's recommended to update the ESLint configuration to enable type-aware rules:
 
-1. Configure the top-level `parserOptions` property as follows:
+1. Configure the top-level \`parserOptions\` property as follows:
 
-   ```js
+   \`\`\`js
    export default tseslint.config({
-     languageOptions: {
-       // other options...
-       parserOptions: {
-         project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-         tsconfigRootDir: import.meta.dirname,
-       },
-     },
+   languageOptions: {
+   // other options...
+   parserOptions: {
+   project: ["./tsconfig.node.json", "./tsconfig.app.json"],
+   tsconfigRootDir: import.meta.dirname,
+   },
+   },
    });
-   ```
+   \`\`\`
 
-2. Replace `tseslint.configs.recommended` with `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`.
+2. Replace \`tseslint.configs.recommended\` with \`tseslint.configs.recommendedTypeChecked\` or \`tseslint.configs.strictTypeChecked\`.
 
-3. Optionally, add `...tseslint.configs.stylisticTypeChecked`.
+3. Optionally, add \`...tseslint.configs.stylisticTypeChecked\`.
 
 4. Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the configuration:
 
-   ```js
+   \`\`\`js
    // eslint.config.js
    import react from "eslint-plugin-react";
 
    export default tseslint.config({
-     // Set the React version
-     settings: { react: { version: "18.3" } },
-     plugins: {
-       // Add the React plugin
-       react,
-     },
-     rules: {
-       // other rules...
-       // Enable its recommended rules
-       ...react.configs.recommended.rules,
-       ...react.configs["jsx-runtime"].rules,
-     },
+   // Set the React version
+   settings: { react: { version: "18.3" } },
+   plugins: {
+   // Add the React plugin
+   react,
+   },
+   rules: {
+   // other rules...
+   // Enable its recommended rules
+   ...react.configs.recommended.rules,
+   ...react.configs["jsx-runtime"].rules,
+   },
    });
-   ```
+   \`\`\`
 
 ## License
 
