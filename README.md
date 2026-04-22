@@ -1,102 +1,96 @@
-# Electron.js Boilerplate with React + TypeScript + Vite
+# 🛡️ Electron + React + Vite (Security-First Boilerplate)
 
-A boilerplate to quickly start working with Electron.js, React, TypeScript, and Vite. This template includes minimal configurations to run a React app with Vite, featuring Hot Module Replacement (HMR) support and ESLint for code quality.
+A professional, high-performance desktop application boilerplate where security is the foundation, not an afterthought. This project utilizes the latest standards of **Electron**, **React**, and **Vite**, eliminating the risk of data leaks and unauthorized system access by strictly isolating the frontend from the backend.
 
-## Technologies used in the project
+---
 
-- [Electron.js](https://www.electronjs.org/)
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](https://vitejs.dev/)
-- [ESLint](https://eslint.org/)
-- [Babel](https://babeljs.io/) or [SWC](https://swc.rs/) (depending on the configuration)
+## 🔒 Security Architecture (The Shield)
 
-## Installation Instructions
+This boilerplate is strictly configured to ensure the rendering process is completely isolated from the system layer:
 
-To run the project locally, follow these steps:
+- **No Node.js in Renderer:** `nodeIntegration` is disabled. Attempting to access Node.js modules (like `fs` or `path`) directly from the React UI or the browser console will fail.
+- **Context Isolation:** Full separation between the Main process and the UI process prevents prototype pollution and unauthorized access to Electron's internal APIs.
+- **Secure Preload Bridge:** All communication with the system layer is handled through `src/electron/preload.cts`. The UI only interacts with a strictly defined and sanitized API exposed via the `contextBridge`.
+- **Zero-Leak Principle:** Sensitive backend logic, system paths, and Node.js capabilities remain hidden from the frontend, ensuring maximum security and a "clean" console.
+- **Type-Safe IPC:** Full TypeScript integration ensures that data passed through the bridge is validated and consistent across the entire application.
 
-1. Clone the repository:
+---
 
-   \`\`\`bash
-   git clone https://github.com/Malzagic/Electronjs-boilerplate-with-react-ts-vite.git
-   \`\`\`
+## 🛠️ Tech Stack
 
-2. Navigate to the project directory:
+- **Core:** [Electron](https://www.electronjs.org/)
+- **Frontend:** [React](https://reactjs.org/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/) (Strict Mode)
+- **Bundler:** [Vite](https://vitejs.dev/)
+- **Communication:** IPC via `contextBridge`
 
-   \`\`\`bash
-   cd Electronjs-boilerplate-with-react-ts-vite
-   \`\`\`
+---
 
-3. Install dependencies:
+## 📂 Project Structure
 
-   \`\`\`bash
-   npm install
-   \`\`\`
+This project follows a clean, modular structure designed for safety and scalability:
 
-4. Run the application in development mode:
+```text
+├── src/
+│   ├── electron/             # Main process & System logic
+│   │   ├── main.ts           # Entry point for the Main process
+│   │   ├── preload.cts       # Secure bridge (IPC Gateway)
+│   │   ├── pathResolver.ts   # Asset and path management
+│   │   ├── util.ts           # Backend utility functions
+│   │   └── tsconfig.json     # Electron-specific TS configuration
+│   └── UI/                   # React Frontend
+│       ├── App.tsx           # Main React component
+│       ├── main.tsx          # Frontend entry point
+│       └── assets/           # UI-specific resources
+├── public/                   # Static assets
+├── index.html                # Vite entry template
+├── vite.config.ts            # High-performance build configuration
+└── package.json              # Project dependencies & scripts
+```
 
-   \`\`\`bash
-   npm run dev
-   \`\`\`
+## 🚀 Getting Started
 
-   This command will handle:
+1. Installation
+   Clone the repository and install dependencies using npm:
 
-   - Building and running the React application with Vite and HMR.
-   - Transpiling the Electron code (if needed) and starting Electron in development mode.
+Bash
 
-   You no longer need to manually run multiple commands (\`npm run build\`, \`npm run transpile:electron\`, \`npm run dev:electron\`). Running \`npm run dev\` will handle everything in one step.
+```
+npm install
+```
 
-## Vite Note:
+## 2. Development
 
-This template provides a minimal setup to get React working with TypeScript in Vite, along with HMR and some ESLint rules. Currently, two official plugins are available:
+Run the application in development mode with Hot Module Replacement (HMR):
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh.
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh.
+Bash
 
-### Expanding the ESLint configuration
+```
+npm run dev
+```
 
-If you are developing a production application, it's recommended to update the ESLint configuration to enable type-aware rules:
+## 3. Production Build
 
-1. Configure the top-level \`parserOptions\` property as follows:
+Package the application for production:
 
-   \`\`\`js
-   export default tseslint.config({
-   languageOptions: {
-   // other options...
-   parserOptions: {
-   project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-   tsconfigRootDir: import.meta.dirname,
-   },
-   },
-   });
-   \`\`\`
+Bash
 
-2. Replace \`tseslint.configs.recommended\` with \`tseslint.configs.recommendedTypeChecked\` or \`tseslint.configs.strictTypeChecked\`.
+```
+npm run build
+```
 
-3. Optionally, add \`...tseslint.configs.stylisticTypeChecked\`.
+## 📝 Coding Principles & Best Practices
 
-4. Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the configuration:
+- To maintain the professional quality and security of this boilerplate, please follow these rules:
 
-   \`\`\`js
-   // eslint.config.js
-   import react from "eslint-plugin-react";
+- Code Quality: Keep the code clean, readable, and well-organized so that others can easily understand and maintain it.
 
-   export default tseslint.config({
-   // Set the React version
-   settings: { react: { version: "18.3" } },
-   plugins: {
-   // Add the React plugin
-   react,
-   },
-   rules: {
-   // other rules...
-   // Enable its recommended rules
-   ...react.configs.recommended.rules,
-   ...react.configs["jsx-runtime"].rules,
-   },
-   });
-   \`\`\`
+- English Comments: All comments, documentation, and technical descriptions within the code must be written in English.
 
-## License
+- Strict Security: Never enable nodeIntegration in the renderer. Only expose necessary functionality through the preload script.
 
-This project is licensed under the MIT License.
+- No Hallucinations: Always implement solutions based on official documentation and verified best practices. If a solution is unknown, verify it before implementation.
+
+- Preserve Integrity: When expanding the boilerplate, do not break existing features. Only add what is necessary and keep the codebase optimal.
+
+- Professional Standards: Always verify compatibility with the latest documentation and maintain a professional level of engineering throughout the project.
